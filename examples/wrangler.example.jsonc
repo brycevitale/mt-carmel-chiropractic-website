@@ -1,0 +1,22 @@
+// ** example cloudflare workers config **
+// Same settings as the production site, with placeholder names and domains.
+// Named .example on purpose so `wrangler deploy` never picks it up from this repository.
+{
+  "name": "example-clinic-site",
+  "compatibility_date": "2026-10-01",
+  // keeps a workers.dev address for staging (protect it with Cloudflare Access)
+  "workers_dev": true,
+  // every custom domain the Worker serves must be listed here:
+  // `wrangler deploy` replaces the Worker's custom domains with this list
+  "routes": [
+    { "pattern": "example.com", "custom_domain": true },
+    { "pattern": "example.org", "custom_domain": true }
+  ],
+  "assets": {
+    "directory": "./public",
+    // clean URLs such as /team and /services/; .html addresses redirect to them
+    "html_handling": "auto-trailing-slash",
+    // unknown URLs get public/404.html with an HTTP 404 status
+    "not_found_handling": "404-page"
+  }
+}
